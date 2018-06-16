@@ -16,7 +16,12 @@ GLuint programTexture;
 
 Core::Shader_Loader shaderLoader;
 
-obj::Model shipModel;
+//obj::Model shipModel;
+obj::Model fishFrontModel;
+obj::Model fishBackModel;
+obj::Model ogonModel;
+obj::Model pletwa1Model;
+obj::Model pletwa2Model;
 //obj::Model sphereModel;
 
 glm::vec3 cameraPos = glm::vec3(0, 0, 5);
@@ -138,9 +143,30 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.1f, 0.3f, 1.0f);
 
-	glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(0,-0.25f,0)) * glm::rotate(glm::radians(180.0f), glm::vec3(0,1,0)) * glm::scale(glm::vec3(0.25f));
-	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * /*glm::mat4_cast(glm::inverse(rotation)) * */ shipInitialTransformation;
-	drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
+	//glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(0,-0.25f,0)) * glm::rotate(glm::radians(180.0f), glm::vec3(0,1,0)) * glm::scale(glm::vec3(0.25f));
+	//glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * /*glm::mat4_cast(glm::inverse(rotation)) * */ shipInitialTransformation;
+	//drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
+
+	glm::mat4 fishFrontInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 fishFrontModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * fishFrontInitialTransformation;
+	drawObjectColor(&fishFrontModel, fishFrontModelMatrix, glm::vec3(0.6f));
+
+	glm::mat4 fishBackInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 fishBackModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * fishBackInitialTransformation;
+	drawObjectColor(&fishBackModel, fishBackModelMatrix, glm::vec3(0.6f));
+
+	glm::mat4 ogonInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 ogonModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * ogonInitialTransformation;
+	drawObjectColor(&ogonModel, ogonModelMatrix, glm::vec3(0.6f));
+
+	glm::mat4 pletwa1InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 pletwa1ModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * pletwa1InitialTransformation;
+	drawObjectColor(&pletwa1Model, pletwa1ModelMatrix, glm::vec3(0.6f));
+
+	glm::mat4 pletwa2InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 pletwa2ModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * pletwa2InitialTransformation;
+	drawObjectColor(&pletwa2Model, pletwa2ModelMatrix, glm::vec3(0.6f));
+
 
 	/*for (int i = 0; i < asteroidsTransSize; i++) {
 		drawObjectTexture(&sphereModel, glm::translate(asteroidsTrans[i]), textureAsteroid);
@@ -156,7 +182,11 @@ void init()
 	programColor = shaderLoader.CreateProgram("shaders/shader_color.vert", "shaders/shader_color.frag");
 	programTexture = shaderLoader.CreateProgram("shaders/shader_tex.vert", "shaders/shader_tex.frag");
 	//sphereModel = obj::loadModelFromFile("models/sphere.obj");
-	shipModel = obj::loadModelFromFile("models/spaceship.obj");
+	fishFrontModel = obj::loadModelFromFile("models/fish/fishFront.obj");
+	fishBackModel = obj::loadModelFromFile("models/fish/fishBack.obj");
+	ogonModel = obj::loadModelFromFile("models/fish/ogon.obj");
+	pletwa1Model = obj::loadModelFromFile("models/fish/pletwa1.obj");
+	pletwa2Model = obj::loadModelFromFile("models/fish/pletwa2.obj");
 	textureAsteroid = Core::LoadTexture("textures/asteroid.png");
 	/*for (int i = 0; i < asteroidsTransSize; i++) {
 		asteroidsTrans[i] = glm::ballRand(20.0f);
