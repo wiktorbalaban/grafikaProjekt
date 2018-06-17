@@ -154,11 +154,14 @@ void renderScene()
 	//glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * /*glm::mat4_cast(glm::inverse(rotation)) * */ shipInitialTransformation;
 	//drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
 	float fishInitRotY = 180.0f;
-	float fishInitRotX = 90.0f;
+	float fishInitRotX = 20.0f;
 	float przesunX = 0.3f;
 	float time = glutGet(GLUT_ELAPSED_TIME)/1000.0f;
-	float fishFrontRadius = 4.0f;
-	float pletwaRadius = 15.0f;
+	float fishFrontRadius = 3.0f;
+	float fishBackRadius = 4.0f;
+	float ogonRadius = 10.0f;
+	float pletwaRadius = 17.0f;
+	float pletwaMoveSpeed = 1.7f;
 
 
 	glm::mat4 fishFrontInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotX), glm::vec3(1, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) 
@@ -166,23 +169,28 @@ void renderScene()
 	glm::mat4 fishFrontModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * glm::mat4_cast(glm::inverse(rotation)) * fishFrontInitialTransformation;
 	drawObjectTexture(&fishFrontModel, fishFrontModelMatrix, fishBackTexture);
 
-	glm::mat4 fishBackInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotX), glm::vec3(1, 0, 0))  * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 fishBackInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotX), glm::vec3(1, 0, 0))  * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) 
+		* glm::translate(glm::vec3(0, 0, 0.3f*0.25f)) * glm::rotate(glm::radians(sinf(time)*fishFrontRadius), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(0, 0, -0.3f*0.25f))
+		* glm::translate(glm::vec3(0, 0, 0.44206f*0.25f)) * glm::rotate(glm::radians(sinf(time)*fishBackRadius), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(0, 0, -0.44206f*0.25f)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 fishBackModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * glm::mat4_cast(glm::inverse(rotation)) * fishBackInitialTransformation;
 	drawObjectTexture(&fishBackModel, fishBackModelMatrix, fishBackTexture);
 
-	glm::mat4 ogonInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotX), glm::vec3(1, 0, 0))  * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 ogonInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotX), glm::vec3(1, 0, 0))  * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) 
+		* glm::translate(glm::vec3(0, 0, 0.3f*0.25f)) * glm::rotate(glm::radians(sinf(time)*fishFrontRadius), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(0, 0, -0.3f*0.25f))
+		* glm::translate(glm::vec3(0, 0, 0.44206f*0.25f)) * glm::rotate(glm::radians(sinf(time)*fishBackRadius), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(0, 0, -0.44206f*0.25f)) 
+		* glm::translate(glm::vec3(0, 0, -0.92108f*0.25f)) * glm::rotate(glm::radians(sinf(time)*ogonRadius), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(0, 0, 0.92108f*0.25f)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 ogonModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * glm::mat4_cast(glm::inverse(rotation)) * ogonInitialTransformation;
 	drawObjectTexture(&ogonModel, ogonModelMatrix, ogonTexture);
 
 	glm::mat4 pletwa1InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotX), glm::vec3(1, 0, 0))  * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) 
 		* glm::translate(glm::vec3(0, 0, 0.3f*0.25f)) * glm::rotate(glm::radians(sinf(time)*fishFrontRadius), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(0, 0, -0.3f*0.25f))
-		* glm::translate(glm::vec3(0.15802f*0.25f, 0.01582*0.25f, 0.0f)) * glm::rotate(glm::radians(sinf(time)*pletwaRadius+15.0f), glm::vec3(0, 0, 1)) * glm::translate(glm::vec3(-0.15802f*0.25f, -0.01582*0.25f, 0)) * glm::scale(glm::vec3(0.25f));
+		* glm::translate(glm::vec3(0.15802f*0.25f, 0.01582*0.25f, 0.0f)) * glm::rotate(glm::radians(sinf(time*pletwaMoveSpeed)*pletwaRadius+15.0f), glm::vec3(0, 0, 1)) * glm::translate(glm::vec3(-0.15802f*0.25f, -0.01582*0.25f, 0)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 pletwa1ModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * glm::mat4_cast(glm::inverse(rotation)) * pletwa1InitialTransformation;
 	drawObjectTexture(&pletwa1Model, pletwa1ModelMatrix, pletwa1Texture);
 
 	glm::mat4 pletwa2InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotX), glm::vec3(1, 0, 0))  * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) 
 		* glm::translate(glm::vec3(0, 0, 0.3f*0.25f)) * glm::rotate(glm::radians(sinf(time)*fishFrontRadius), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(0, 0, -0.3f*0.25f))
-		* glm::translate(glm::vec3(-0.15802f*0.25f, -0.01582*0.25f, 0.0f)) * glm::rotate(glm::radians(-sinf(time)*pletwaRadius - 15.0f), glm::vec3(0, 0, 1)) * glm::translate(glm::vec3(0.15802f*0.25f, 0.01582*0.25f, 0)) * glm::scale(glm::vec3(0.25f));
+		* glm::translate(glm::vec3(-0.15802f*0.25f, -0.01582*0.25f, 0.0f)) * glm::rotate(glm::radians(-sinf(time*pletwaMoveSpeed)*pletwaRadius - 15.0f), glm::vec3(0, 0, 1)) * glm::translate(glm::vec3(0.15802f*0.25f, 0.01582*0.25f, 0)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 pletwa2ModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * glm::mat4_cast(glm::inverse(rotation)) * pletwa2InitialTransformation;
 	drawObjectTexture(&pletwa2Model, pletwa2ModelMatrix, pletwa1Texture);
 
