@@ -137,6 +137,9 @@ void drawObjectTexture(obj::Model * model, glm::mat4 modelMatrix, GLuint texture
 
 	glUseProgram(0);
 }
+glm::mat4 rotate(float angle, glm::vec3 axis, glm::vec3 position) {
+	return glm::translate(position) * glm::rotate(glm::radians(angle), axis) * glm::translate(-position);
+}
 void renderScene()
 {
 	// Aktualizacja macierzy widoku i rzutowania
@@ -149,10 +152,15 @@ void renderScene()
 	//glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(0,-0.25f,0)) * glm::rotate(glm::radians(180.0f), glm::vec3(0,1,0)) * glm::scale(glm::vec3(0.25f));
 	//glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * /*glm::mat4_cast(glm::inverse(rotation)) * */ shipInitialTransformation;
 	//drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
-	float fishInitRotY = -90.0f;
+	float fishInitRotY = 90.0f;
+	float przesunX = 0.3f;
+	float time = glutGet(GLUT_ELAPSED_TIME)/1000.0f;
+	float radius = 15.0f;
+
 
 	glm::mat4 fishFrontInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
-	glm::mat4 fishFrontModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * fishFrontInitialTransformation;
+	glm::mat4 fishFrontModelMatrix = rotate(sinf(time)*radius, glm::vec3(0, 0, 1), glm::vec3(0.3f, 0, 0)*0.25f)
+		* glm::translate(cameraPos + cameraDir * 0.5f) * fishFrontInitialTransformation;
 	drawObjectTexture(&fishFrontModel, fishFrontModelMatrix, fishBackTexture);
 
 	glm::mat4 fishBackInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
