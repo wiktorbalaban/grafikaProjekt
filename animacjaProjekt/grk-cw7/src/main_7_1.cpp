@@ -35,7 +35,10 @@ glm::vec3 lightDir = glm::normalize(glm::vec3(1.0f, -0.9f, -1.0f));
 
 glm::quat rotation = glm::quat(1, 0, 0, 0);
 
-GLuint textureAsteroid;
+//GLuint textureAsteroid;
+GLuint fishBackTexture;
+GLuint ogonTexture;
+GLuint pletwa1Texture;
 
 //const int asteroidsTransSize = 10;
 //glm::vec3 asteroidsTrans [asteroidsTransSize];
@@ -146,26 +149,27 @@ void renderScene()
 	//glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(0,-0.25f,0)) * glm::rotate(glm::radians(180.0f), glm::vec3(0,1,0)) * glm::scale(glm::vec3(0.25f));
 	//glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * /*glm::mat4_cast(glm::inverse(rotation)) * */ shipInitialTransformation;
 	//drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
+	float fishInitRotY = -90.0f;
 
-	glm::mat4 fishFrontInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 fishFrontInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 fishFrontModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * fishFrontInitialTransformation;
-	drawObjectColor(&fishFrontModel, fishFrontModelMatrix, glm::vec3(0.6f));
+	drawObjectTexture(&fishFrontModel, fishFrontModelMatrix, fishBackTexture);
 
-	glm::mat4 fishBackInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 fishBackInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 fishBackModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * fishBackInitialTransformation;
-	drawObjectColor(&fishBackModel, fishBackModelMatrix, glm::vec3(0.6f));
+	drawObjectTexture(&fishBackModel, fishBackModelMatrix, fishBackTexture);
 
-	glm::mat4 ogonInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 ogonInitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 ogonModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * ogonInitialTransformation;
-	drawObjectColor(&ogonModel, ogonModelMatrix, glm::vec3(0.6f));
+	drawObjectTexture(&ogonModel, ogonModelMatrix, ogonTexture);
 
-	glm::mat4 pletwa1InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 pletwa1InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 pletwa1ModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * pletwa1InitialTransformation;
-	drawObjectColor(&pletwa1Model, pletwa1ModelMatrix, glm::vec3(0.6f));
+	drawObjectTexture(&pletwa1Model, pletwa1ModelMatrix, pletwa1Texture);
 
-	glm::mat4 pletwa2InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 pletwa2InitialTransformation = glm::translate(glm::vec3(0, 0, 0)) * glm::rotate(glm::radians(fishInitRotY), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
 	glm::mat4 pletwa2ModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * pletwa2InitialTransformation;
-	drawObjectColor(&pletwa2Model, pletwa2ModelMatrix, glm::vec3(0.6f));
+	drawObjectTexture(&pletwa2Model, pletwa2ModelMatrix, pletwa1Texture);
 
 
 	/*for (int i = 0; i < asteroidsTransSize; i++) {
@@ -187,7 +191,10 @@ void init()
 	ogonModel = obj::loadModelFromFile("models/fish/ogon.obj");
 	pletwa1Model = obj::loadModelFromFile("models/fish/pletwa1.obj");
 	pletwa2Model = obj::loadModelFromFile("models/fish/pletwa2.obj");
-	textureAsteroid = Core::LoadTexture("textures/asteroid.png");
+	fishBackTexture = Core::LoadTexture("textures/fish/sphere7_auv.png");
+	ogonTexture = Core::LoadTexture("textures/fish/octahedron1_auv.png");
+	pletwa1Texture = Core::LoadTexture("textures/fish/cone3_auv.png");
+	//textureAsteroid = Core::LoadTexture("textures/fish/sphere7_auv.png");
 	/*for (int i = 0; i < asteroidsTransSize; i++) {
 		asteroidsTrans[i] = glm::ballRand(20.0f);
 	}*/
