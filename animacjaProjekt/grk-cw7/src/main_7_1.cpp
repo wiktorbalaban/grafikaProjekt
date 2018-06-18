@@ -196,7 +196,7 @@ void renderScene()
 
 
 	for (int i = 0; i < asteroidsTransSize; i++) {
-		drawObjectTexture(&sphereModel, glm::translate(asteroidsTrans[i]), textureAsteroid);
+		drawObjectTexture(&sphereModel, glm::rotate(glm::radians(180.0f), glm::vec3(1, 0, 0)) * glm::translate(asteroidsTrans[i]) , textureAsteroid);
 	}
 
 	glutSwapBuffers();
@@ -208,7 +208,7 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 	programColor = shaderLoader.CreateProgram("shaders/shader_color.vert", "shaders/shader_color.frag");
 	programTexture = shaderLoader.CreateProgram("shaders/shader_tex.vert", "shaders/shader_tex.frag");
-	sphereModel = obj::loadModelFromFile("models/sphere.obj");
+	sphereModel = obj::loadModelFromFile("models/fish/meduza.obj");
 	fishFrontModel = obj::loadModelFromFile("models/fish/fishFront.obj");
 	fishBackModel = obj::loadModelFromFile("models/fish/fishBack.obj");
 	ogonModel = obj::loadModelFromFile("models/fish/ogon.obj");
@@ -217,7 +217,7 @@ void init()
 	fishBackTexture = Core::LoadTexture("textures/fish/sphere7_auv.png");
 	ogonTexture = Core::LoadTexture("textures/fish/octahedron1_auv.png");
 	pletwa1Texture = Core::LoadTexture("textures/fish/cone3_auv.png");
-	textureAsteroid = Core::LoadTexture("textures/fish/sphere7_auv.png");
+	textureAsteroid = Core::LoadTexture("textures/fish/auvBG.png");
 	for (int i = 0; i < asteroidsTransSize; i++) {
 		asteroidsTrans[i] = glm::ballRand(20.0f);
 	}
