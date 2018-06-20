@@ -1,13 +1,1 @@
-﻿  Texture.cpp
-  Shader_Loader.cpp
-  Render_Utils.cpp
-  picopng.cpp
-  main_7_1.cpp
-j:\grafikaprojekt\animacjaprojekt\grk-cw7\src\main_7_1.cpp(83): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-j:\grafikaprojekt\animacjaprojekt\grk-cw7\src\main_7_1.cpp(84): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-j:\grafikaprojekt\animacjaprojekt\grk-cw7\src\main_7_1.cpp(207): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Camera.cpp
-  Generating Code...
-Camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
-  grk-cw7.vcxproj -> J:\grafikaProjekt\animacjaProjekt\grk-cw7\Debug\grk-cw7.exe
-  grk-cw7.vcxproj -> J:\grafikaProjekt\animacjaProjekt\grk-cw7\Debug\grk-cw7.pdb (Partial PDB)
+﻿
